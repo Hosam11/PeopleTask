@@ -21,11 +21,12 @@
                 android:id="@+id/imageView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@color/black"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                app:imageUrl="@{person.imgPath}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView
                 android:id="@+id/textView2"

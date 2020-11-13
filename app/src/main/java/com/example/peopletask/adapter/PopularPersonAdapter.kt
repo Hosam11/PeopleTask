@@ -15,10 +15,7 @@ class PopularPersonAdapter
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonsViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = PopularPeopleListItemBinding.inflate(layoutInflater, parent, false)
-
-        return PersonsViewHolder(binding)
+        return PersonsViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: PersonsViewHolder, position: Int) {
@@ -29,6 +26,15 @@ class PopularPersonAdapter
 
     class PersonsViewHolder(private val binding: PopularPeopleListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        companion object {
+            fun from(parent: ViewGroup): PersonsViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = PopularPeopleListItemBinding.inflate(layoutInflater, parent, false)
+                return PersonsViewHolder(binding)
+            }
+        }
+
         fun bind(person: PersonResult) {
             binding.person = person
             // This is important, because it forces the data binding to execute immediately,

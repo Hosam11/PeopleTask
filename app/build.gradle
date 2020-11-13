@@ -82,4 +82,9 @@ dependencies {
     def timber = "4.7.1"
     implementation "com.jakewharton.timber:timber:$timber"
 
+    // For Kotlin use paging-runtime-ktx
+    def paging = "2.1.2"
+    implementation "androidx.paging:paging-runtime:$paging"
+
+
 }

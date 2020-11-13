@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PeopleTask</string>
+
+    <string name="image_url">http://image.tmdb.org/t/p/w185/%s</string>
 </resources>
