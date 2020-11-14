@@ -11,7 +11,7 @@ import com.squareup.moshi.Json
 data class PopularPeopleResponse(
     val page: Int,
     @Json(name = "total_pages") val totalPages: Int,
-    val results: List<PersonResult>
+    @Json(name = "results")val personsList: List<PersonResult>
 )
 
 
@@ -32,7 +32,7 @@ data class PopularPeopleResponse(
 
 data class PersonResult(
     val name: String,
-    @Json(name = "profile_path") val imgPath: String,
+    @Json(name = "profile_path") val imgPath: String?,
     @Json(name = "known_for_department") val personType: String
 )
 

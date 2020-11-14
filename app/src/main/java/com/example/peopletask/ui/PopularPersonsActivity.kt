@@ -8,16 +8,11 @@ import com.example.peopletask.R
 import com.example.peopletask.adapter.PopularPersonAdapter
 import com.example.peopletask.databinding.ActivityPopularPersonsBinding
 import com.example.peopletask.viewmodels.PopularPersonsViewModel
+import com.example.peopletask.viewmodels.PopularPersonsViewModelFactory
+import timber.log.Timber
 
 
 class PopularPersonsActivity : AppCompatActivity() {
-
-    /**
-     * Lazily initialize our [OverviewViewModel].
-     */
-    private val personsViewModel: PopularPersonsViewModel by lazy {
-        ViewModelProvider(this).get(PopularPersonsViewModel::class.java)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +24,16 @@ class PopularPersonsActivity : AppCompatActivity() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
+        val personsViewModelFactory = PopularPersonsViewModelFactory(application)
+
+        val personsViewModel = ViewModelProvider(this, personsViewModelFactory)
+            .get(PopularPersonsViewModel::class.java)
+
         binding.viewModel = personsViewModel
 
         val adapter = PopularPersonAdapter()
-        binding.rvPopularPersons.adapter = adapter
 
+        binding.rvPopularPersons.adapter = adapter
 
     }
 }

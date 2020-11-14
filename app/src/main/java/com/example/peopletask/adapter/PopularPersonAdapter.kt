@@ -2,8 +2,8 @@ package com.example.peopletask.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.peopletask.adapter.PopularPersonAdapter.PersonsViewHolder
 import com.example.peopletask.databinding.PopularPeopleListItemBinding
@@ -11,8 +11,7 @@ import com.example.peopletask.domain.PersonResult
 
 
 class PopularPersonAdapter
-    : ListAdapter<PersonResult, PersonsViewHolder>(DiffCallback) {
-
+    : PagedListAdapter<PersonResult, PersonsViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonsViewHolder {
         return PersonsViewHolder.from(parent)
@@ -20,7 +19,7 @@ class PopularPersonAdapter
 
     override fun onBindViewHolder(holder: PersonsViewHolder, position: Int) {
         val person = getItem(position)
-        holder.bind(person)
+        person?.let { holder.bind(it) }
     }
 
 
@@ -49,14 +48,11 @@ class PopularPersonAdapter
      * has been updated.
      */
     companion object DiffCallback : DiffUtil.ItemCallback<PersonResult>() {
-        override fun areItemsTheSame(oldItem: PersonResult, newItem: PersonResult): Boolean {
-            return oldItem === newItem
-        }
+        override fun areItemsTheSame(oldItem: PersonResult, newItem: PersonResult) =
+            oldItem === newItem
 
-        override fun areContentsTheSame(oldItem: PersonResult, newItem: PersonResult): Boolean {
-            return newItem == oldItem
-        }
-
+        override fun areContentsTheSame(oldItem: PersonResult, newItem: PersonResult) =
+            newItem == oldItem
     }
 
 }

@@ -15,9 +15,12 @@ private const val BASE_URL = "https://api.themoviedb.org/3/person/"
 /**
  * A retrofit service to fetch a Popular people playlist.
  */
-interface PeopleApiService {
+interface PersonsApiService {
     @GET("popular")
-    suspend fun getPopularPeople(@Query("api_key") apiKey: String): PopularPeopleResponse
+    suspend fun getPopularPeople(
+        @Query("api_key") apiKey: String,
+        @Query("page") pageNumber:Int
+    ): PopularPeopleResponse
 }
 
 object PersonsNetwork {
@@ -33,6 +36,6 @@ object PersonsNetwork {
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
 
-    val personsService: PeopleApiService = retrofit.create(PeopleApiService::class.java)
+    val personsService: PersonsApiService = retrofit.create(PersonsApiService::class.java)
 }
 

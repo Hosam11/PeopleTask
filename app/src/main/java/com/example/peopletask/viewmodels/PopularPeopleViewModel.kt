@@ -1,33 +1,38 @@
 package com.example.peopletask.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.example.peopletask.data.PopularDataSource
+import com.example.peopletask.data.PopularDataSourceFactory
 import com.example.peopletask.domain.PersonResult
-import com.example.peopletask.network.PersonsNetwork
-import com.example.peopletask.util.Util
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
+class PopularPersonsViewModel(app: Application) : AndroidViewModel(app) {
 
-class PopularPersonsViewModel : ViewModel() {
-
-    private val _persons = MutableLiveData<List<PersonResult>>()
-
-    val persons: LiveData<List<PersonResult>>
-        get() = _persons
+    var popularPagedList: LiveData<PagedList<PersonResult>>
 
     init {
-        getPopularPersons()
+        val dataSourceFactory = PopularDataSourceFactory(viewModelScope, app.applicationContext)
+        val config = PagedList.Config.Builder()
+            .setPageSize(PopularDataSource.PAGE_SIZE)
+            .setEnablePlaceholders(false)
+            .build()
+
+        popularPagedList = LivePagedListBuilder(dataSourceFactory, config)
+            .build()
+
     }
 
-    private fun getPopularPersons() {
-        viewModelScope.launch {
-            _persons.value = PersonsNetwork.personsService.getPopularPeople(Util.API_KEY).results
-            Timber.i("getPopularPersons ${_persons.value?.size}")
-        }
+}
 
+class PopularPersonsViewModelFactory(private val app: Application) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(PopularPersonsViewModel::class.java)) {
+            return PopularPersonsViewModel(app) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 
 }
