@@ -1,17 +1,17 @@
-package com.example.peopletask.adapter
+package com.example.peopletask.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.peopletask.adapter.PopularPersonAdapter.PersonsViewHolder
+import com.example.peopletask.adapters.PopularPersonAdapter.PersonsViewHolder
 import com.example.peopletask.databinding.PopularPeopleListItemBinding
 import com.example.peopletask.domain.PersonResult
 
 
-class PopularPersonAdapter
-    : PagedListAdapter<PersonResult, PersonsViewHolder>(DiffCallback) {
+class PopularPersonAdapter(private val personClickListener: PersonClickListener) :
+    PagedListAdapter<PersonResult, PersonsViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonsViewHolder {
         return PersonsViewHolder.from(parent)
@@ -20,6 +20,10 @@ class PopularPersonAdapter
     override fun onBindViewHolder(holder: PersonsViewHolder, position: Int) {
         val person = getItem(position)
         person?.let { holder.bind(it) }
+
+        holder.itemView.setOnClickListener {
+            person?.let { personClickListener.onPersonClick(it) }
+        }
     }
 
 
@@ -53,6 +57,16 @@ class PopularPersonAdapter
 
         override fun areContentsTheSame(oldItem: PersonResult, newItem: PersonResult) =
             newItem == oldItem
+    }
+
+    /**
+     * Custom listener that handles clicks on [RecyclerView] items. Passes the [PersonResult]
+     * associated with the current item to the [onPersonClick] function.
+     *
+     * @param clickListener lambda that will be called with the current [PersonResult]
+     */
+    class PersonClickListener(private val clickListener: (personResult: PersonResult) -> Unit) {
+        fun onPersonClick(person: PersonResult) = clickListener(person)
     }
 
 }

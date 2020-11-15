@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.peopletask.R
-import com.example.peopletask.adapter.PopularPersonAdapter
+import com.example.peopletask.adapters.PopularPersonAdapter
 import com.example.peopletask.domain.PersonResult
 import timber.log.Timber
 
@@ -33,7 +33,6 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: PagedList<PersonResult>?)
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgPath: String?) {
     imgPath?.let {
-
         // add the path of image to string url so glide can download the image
         val imgUrl = Util.IMAGE_URL + imgPath
         // convert string url to uri
@@ -43,7 +42,7 @@ fun bindImage(imgView: ImageView, imgPath: String?) {
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.no_imgae_found)
+                    .error(R.drawable.no_image_found)
             )
             .into(imgView)
     }

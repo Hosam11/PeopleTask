@@ -7,18 +7,20 @@ import android.os.Build
 
 
 // TODO
-//  1- improve the design ##If there is time##
-//  2- handle display type of people use(actor) rather than(acting) ##VIP##
-//  3- handle response failure (network/server down) ##important##
+//  1- improve the design                                   >>If there is time<<
+//  2- handle response failure (network/server down)        ##important##
+//  3- add Shimmer library                                  >>If there is time<<
 
 // FixMe
-//  1- airplane mode then device becomes online data didn't show (later) unless you press back button
+//  1- airplane mode then device becomes online data didn't show unless you press back button (later)
 
 
 object Util {
     const val API_KEY = "d48385912e9ef27b0552871f8b253a6e"
 
     const val IMAGE_URL = " http://image.tmdb.org/t/p/w185/"
+
+    const val PERSON_ID_KEY ="person_id"
 
     fun isNetworkAvailable(context: Context?): Boolean {
         if (context == null) return false

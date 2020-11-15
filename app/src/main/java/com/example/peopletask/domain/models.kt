@@ -7,31 +7,21 @@ import com.squareup.moshi.Json
  * objects that should be displayed on screen, or manipulated by the app.
  */
 
-
+/**
+ * response will return object of [PopularPeopleResponse]
+ */
 data class PopularPeopleResponse(
     val page: Int,
     @Json(name = "total_pages") val totalPages: Int,
-    @Json(name = "results")val personsList: List<PersonResult>
+    @Json(name = "results") val personsList: List<PersonResult>
 )
 
-
 /**
- *
-{"popularity": 63.741,
-"known_for_department": "Acting", // {1}
-"gender": 2,
-"id": 18918,
-"profile_path": "\/kuqFzlYMc2IrsOyPznMd1FroeGq.jpg", // {3}
-"adult": false,
-"known_for": [],
-"name": "Dwayne Johnson" // {2}}
+ * in [PopularPeopleResponse] there is list of [PersonResult]
  */
-/**
- * response will return list of [PersonResult]
- */
-
 data class PersonResult(
     val name: String,
+    val id: Long,
     @Json(name = "profile_path") val imgPath: String?,
     @Json(name = "known_for_department") val personType: String
 )
@@ -40,10 +30,24 @@ data class PersonResult(
 /**
  * response will return object of [PersonDetails]
  */
-class PersonDetails
+data class PersonDetails(
+    @Json(name = "profile_path") val imgPath: String?,
+    val name: String,
+    val biography: String,
+    @Json(name = "known_for_department") val personType: String,
+    val gender: Int,
+    val birthday: String?,
+    @Json(name = "also_known_as") val otherNames: List<String>,
+    val popularity: Float
 
+) {
+    // check for nullability and add result to variables if the variable is true hide the related view to it
+    val isBirthdayNull:Boolean = birthday == null
+    val isBiographyEmpty:Boolean = biography.isEmpty()
+    val isOtherNamesEmpty:Boolean = otherNames.isEmpty()
+}
 
 /**
- * response will return list of [PersonProfile]
+ * response will return list of [PersonImages]
  */
-class PersonProfile
+class PersonImages

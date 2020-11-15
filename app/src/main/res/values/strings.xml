@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">PeopleTask</string>
 
-    <string name="image_url">http://image.tmdb.org/t/p/w185/%s</string>
+    <!--    <string name="image_url">http://image.tmdb.org/t/p/w185/%s</string>-->
+
+    <string name="person_acting">Acting</string>
+    <string name="person_actor">Actor</string>
+    <string name="person_director">Director</string>
+    <string name="person_image">Person Image</string>
+    <string name="biography">Biography</string>
+    <string name="biography_test">An American and Canadian actor, producer and semi-retired professional wrestler, signed with WWE. Johnson is half-Black and half-Samoan. His father, Rocky Johnson, is a Black Canadian, from Nova Scotia, and part of the first Black tag team champions in WWE history back when it was known as the WWF along with Tony Atlas. His mother is Samoan and the daughter of Peter Maivia, who was also a pro wrestler. Maivia s wife, Lia Maivia, was one of wrestlings few female promoters, taking over Polynesian Pacific Pro Wrestling after her husbands death in 1982, until 1988. Through his mother, he is considered a non-blood relative of the Anoai wrestling family. On March 29, 2008, The Rock inducted his father and his grandfather into the WWE Hall of Fame.</string>
+    <string name="known_for_label">Known For:</string>
+    <string name="gender">Gender</string>
+    <string name="birthday">Birthday</string>
+    <string name="also_known_as">Also Known As:</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="female_number">1</string>
+
 </resources>

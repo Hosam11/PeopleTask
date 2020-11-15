@@ -1,9 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.PersonDetailsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.peopletask.viewmodels.PersonDetailsViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="true"
+            android:paddingBottom="16dp"
+            tools:context=".ui.PersonDetailsActivity">
+            <!-- person image -->
+            <ImageView
+                android:id="@+id/poster_img_id"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/person_image"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.personDetails.imgPath}"
+                app:layout_constraintDimensionRatio="4:3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                app:srcCompat="@drawable/no_profile_image" />
+            <!-- person name -->
+            <TextView
+                android:id="@+id/person_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:text="@{viewModel.personDetails.name}"
+                app:layout_constraintEnd_toStartOf="@+id/popularity"
+                app:layout_constraintStart_toStartOf="@+id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/poster_img_id"
+                tools:text="name" />
+            <!-- popularity -->
+            <TextView
+                android:id="@+id/popularity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:text="@{String.valueOf(viewModel.personDetails.popularity)}"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toEndOf="@+id/person_name"
+                app:layout_constraintTop_toBottomOf="@id/poster_img_id"
+                tools:text="33.4" />
+            <!-- line 1 -->
+            <View
+                android:id="@+id/line1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/small_margin"
+                android:background="#575353"
+                android:visibility="@{viewModel.personDetails.biographyEmpty ? View.GONE : View.VISIBLE }"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/person_name" />
+            <!--biography label-->
+            <TextView
+                android:id="@+id/biography"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/biography"
+                android:visibility="@{viewModel.personDetails.biographyEmpty ? View.GONE : View.VISIBLE }"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/line1"
+
+                />
+            <!--biography value-->
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:id="@+id/biography_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:visibility="@{viewModel.personDetails.biographyEmpty ? View.GONE : View.VISIBLE }"
+                android:text="@{viewModel.personDetails.biography}"
+                app:colorClickableText="@color/purple_700"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/biography"
+                app:trimCollapsedText="show less"
+                app:trimExpandedText="show more"
+                app:trimLength="150"
+
+                app:trimMode="trimModeLength"
+                tools:text="@string/biography_test" />
+            <!-- line2 -->
+            <View
+                android:id="@+id/line2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:background="#575353"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/biography_value" />
+            <!--known for label-->
+            <TextView
+                android:id="@+id/known_for_label"
+                android:layout_width="@dimen/label_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:text="@string/known_for_label"
+                app:layout_constraintEnd_toStartOf="@id/peron_type"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/line2" />
+            <!--person type -->
+            <TextView
+                android:id="@+id/peron_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@{viewModel.personDetails.personType.equals(@string/person_acting) ? @string/person_actor : @string/person_director}"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toEndOf="@+id/known_for_label"
+                app:layout_constraintTop_toBottomOf="@id/line2"
+                tools:text="Actor"
+
+                />
+            <!-- gender label-->
+            <TextView
+                android:id="@+id/gender_label"
+                android:layout_width="@dimen/label_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:text="@string/gender"
+                app:layout_constraintEnd_toStartOf="@id/gender_value"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/known_for_label" />
+            <!--gender value-->
+            <TextView
+                android:id="@+id/gender_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@{String.valueOf(viewModel.personDetails.gender).equals(@string/female_number) ? @string/female : @string/male }"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toEndOf="@+id/gender_label"
+                app:layout_constraintTop_toBottomOf="@id/known_for_label"
+                tools:text="male" />
+            <!--birthday label-->
+            <TextView
+                android:id="@+id/birthday_label"
+                android:layout_width="@dimen/label_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:text="@string/birthday"
+                android:visibility="@{viewModel.personDetails.isBirthdayNull ? View.GONE : View.VISIBLE }"
+                app:layout_constraintEnd_toStartOf="@id/birthday_value"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/gender_label" />
+            <!--birthday value-->
+            <TextView
+                android:id="@+id/birthday_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@{viewModel.personDetails.birthday}"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toEndOf="@id/birthday_label"
+                app:layout_constraintTop_toBottomOf="@id/gender_label"
+                tools:text="1/10/1000" />
+
+            <!-- line3 -->
+            <View
+                android:id="@+id/line3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:background="#575353"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/birthday_label" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/images_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/line3"
+
+                />
+            <!-- line4 -->
+            <View
+                android:id="@+id/line4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:background="#575353"
+                android:visibility="@{viewModel.personDetails.isOtherNamesEmpty ? View.GONE : View.VISIBLE }"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/images_rv" />
+
+            <!--Also Known As label-->
+            <TextView
+                android:id="@+id/also_known_as_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/also_known_as"
+                android:visibility="@{viewModel.personDetails.isOtherNamesEmpty ? View.GONE : View.VISIBLE }"
+
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/line4" />
+
+            <!--Also Known As value-->
+            <TextView
+                android:id="@+id/also_known_as_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.otherNames}"
+                app:layout_constraintEnd_toStartOf="@id/end_grid"
+                app:layout_constraintStart_toStartOf="@id/start_grid"
+                app:layout_constraintTop_toBottomOf="@id/also_known_as_label"
+                tools:text="The Rock Rocky - Maivia - The Brahma Bull - The Corporate - Champion Двейн Джонсон" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</layout>

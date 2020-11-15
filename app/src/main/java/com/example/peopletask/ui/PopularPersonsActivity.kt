@@ -1,12 +1,14 @@
 package com.example.peopletask.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.peopletask.R
-import com.example.peopletask.adapter.PopularPersonAdapter
+import com.example.peopletask.adapters.PopularPersonAdapter
 import com.example.peopletask.databinding.ActivityPopularPersonsBinding
+import com.example.peopletask.util.Util
 import com.example.peopletask.viewmodels.PopularPersonsViewModel
 import com.example.peopletask.viewmodels.PopularPersonsViewModelFactory
 import timber.log.Timber
@@ -30,8 +32,14 @@ class PopularPersonsActivity : AppCompatActivity() {
             .get(PopularPersonsViewModel::class.java)
 
         binding.viewModel = personsViewModel
-
-        val adapter = PopularPersonAdapter()
+        // Sets the adapter of the PopularPersons RecyclerView with clickHandler lambda that
+        // tells the viewModel when our PersonResult is clicked
+        val adapter = PopularPersonAdapter(PopularPersonAdapter.PersonClickListener { person ->
+            Timber.i("personClick name= ${person.name}  id= ${person.id} ")
+            val personDetailsIntent = Intent(this, PersonDetailsActivity::class.java)
+            personDetailsIntent.putExtra(Util.PERSON_ID_KEY, person.id)
+            startActivity(personDetailsIntent)
+        })
 
         binding.rvPopularPersons.adapter = adapter
 

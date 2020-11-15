@@ -1,11 +1,13 @@
 package com.example.peopletask.network
 
+import com.example.peopletask.domain.PersonDetails
 import com.example.peopletask.domain.PopularPeopleResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -19,8 +21,15 @@ interface PersonsApiService {
     @GET("popular")
     suspend fun getPopularPeople(
         @Query("api_key") apiKey: String,
-        @Query("page") pageNumber:Int
+        @Query("page") pageNumber: Int
     ): PopularPeopleResponse
+
+    @GET("{id}")
+    suspend fun getPersonDetails(
+        @Path("id") personId: Long,
+        @Query("api_key") apiKey: String
+    ): PersonDetails
+
 }
 
 object PersonsNetwork {
