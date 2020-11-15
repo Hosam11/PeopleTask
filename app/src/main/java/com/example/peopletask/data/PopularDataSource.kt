@@ -2,7 +2,7 @@ package com.example.peopletask.data
 
 import android.content.Context
 import androidx.paging.PageKeyedDataSource
-import com.example.peopletask.domain.PersonResult
+import com.example.peopletask.domain.Person
 import com.example.peopletask.network.PersonsNetwork
 import com.example.peopletask.util.Util
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +17,7 @@ import timber.log.Timber
 class PopularDataSource(
     private val coroutineScope: CoroutineScope,
     private val appContext: Context
-) : PageKeyedDataSource<Int, PersonResult>() {
+) : PageKeyedDataSource<Int, Person>() {
 
     companion object {
         const val PAGE_SIZE = 1
@@ -30,7 +30,7 @@ class PopularDataSource(
     /**
      * it used when to scroll up
      */
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, PersonResult>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Person>) {
 
         Timber.i("loadBefore() -  before  coroutineScope.launch key = ${params.key} ")
         if (Util.isNetworkAvailable(appContext)) {
@@ -52,7 +52,7 @@ class PopularDataSource(
     /**
      * is called when natural scroll down
      */
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, PersonResult>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Person>) {
         Timber.i("loadAfter() - before coroutineScope.launch key = ${params.key}")
         if (Util.isNetworkAvailable(appContext)) {
             coroutineScope.launch {
@@ -83,7 +83,7 @@ class PopularDataSource(
      */
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, PersonResult>
+        callback: LoadInitialCallback<Int, Person>
     ) {
         if (Util.isNetworkAvailable(appContext)) {
             coroutineScope.launch {

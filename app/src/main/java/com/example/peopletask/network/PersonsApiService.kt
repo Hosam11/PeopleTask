@@ -1,6 +1,7 @@
 package com.example.peopletask.network
 
 import com.example.peopletask.domain.PersonDetails
+import com.example.peopletask.domain.PersonProfile
 import com.example.peopletask.domain.PopularPeopleResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -15,21 +16,35 @@ private const val BASE_URL = "https://api.themoviedb.org/3/person/"
 
 
 /**
- * A retrofit service to fetch a Popular people playlist.
+ * A retrofit service to fetch a Popular Peoples.
  */
 interface PersonsApiService {
+    /**
+     * @return [PopularPeopleResponse] that contains list of [PersonResult]
+     */
     @GET("popular")
     suspend fun getPopularPeople(
         @Query("api_key") apiKey: String,
         @Query("page") pageNumber: Int
     ): PopularPeopleResponse
 
+    /**
+     * @return details of single person by id
+     */
     @GET("{id}")
     suspend fun getPersonDetails(
         @Path("id") personId: Long,
         @Query("api_key") apiKey: String
     ): PersonDetails
 
+    /**
+     * @return [PersonProfile] object that contains list of [PersonImage]
+     */
+    @GET("{id}/images")
+    suspend fun getPersonImages(
+        @Path("id") personId: Long,
+        @Query("api_key") apiKey: String
+    ): PersonProfile
 }
 
 object PersonsNetwork {

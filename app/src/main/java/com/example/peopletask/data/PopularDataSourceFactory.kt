@@ -2,7 +2,7 @@ package com.example.peopletask.data
 
 import android.content.Context
 import androidx.paging.DataSource
-import com.example.peopletask.domain.PersonResult
+import com.example.peopletask.domain.Person
 import kotlinx.coroutines.CoroutineScope
 import timber.log.Timber
 
@@ -15,9 +15,9 @@ import timber.log.Timber
 class PopularDataSourceFactory(
     private val coroutineScope: CoroutineScope,
     private val appContext: Context
-) : DataSource.Factory<Int, PersonResult>() {
+) : DataSource.Factory<Int, Person>() {
 
-    override fun create(): DataSource<Int, PersonResult> {
+    override fun create(): DataSource<Int, Person> {
         Timber.i(" From create() ")
         return PopularDataSource(coroutineScope, appContext)
     }

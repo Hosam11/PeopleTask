@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.example.peopletask.R
+import com.example.peopletask.adapters.PersonImagesAdapter
 import com.example.peopletask.databinding.ActivityPersonDetailsBinding
 import com.example.peopletask.util.Util
 import com.example.peopletask.viewmodels.PersonDetailsViewModel
@@ -31,6 +32,10 @@ class PersonDetailsActivity : AppCompatActivity() {
             .get(PersonDetailsViewModel::class.java)
 
         binding.viewModel = personsDetailsViewModel
+
+        val imagesAdapter = PersonImagesAdapter()
+        binding.imagesRv.adapter = imagesAdapter
+
 
     }
 }

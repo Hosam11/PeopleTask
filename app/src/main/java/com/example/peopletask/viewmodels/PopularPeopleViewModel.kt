@@ -6,11 +6,11 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.peopletask.data.PopularDataSource
 import com.example.peopletask.data.PopularDataSourceFactory
-import com.example.peopletask.domain.PersonResult
+import com.example.peopletask.domain.Person
 
 class PopularPersonsViewModel(app: Application) : AndroidViewModel(app) {
 
-    var popularPagedList: LiveData<PagedList<PersonResult>>
+    var popularPagedList: LiveData<PagedList<Person>>
 
     init {
         val dataSourceFactory = PopularDataSourceFactory(viewModelScope, app.applicationContext)

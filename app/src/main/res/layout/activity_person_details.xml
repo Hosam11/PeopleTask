@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.peopletask.viewmodels.PersonDetailsViewModel" />
@@ -34,8 +33,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-
-                app:srcCompat="@drawable/no_profile_image" />
+                tools:srcCompat="@drawable/no_profile_image" />
             <!-- person name -->
             <TextView
                 android:id="@+id/person_name"
@@ -88,8 +86,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
-                android:visibility="@{viewModel.personDetails.biographyEmpty ? View.GONE : View.VISIBLE }"
                 android:text="@{viewModel.personDetails.biography}"
+                android:visibility="@{viewModel.personDetails.biographyEmpty ? View.GONE : View.VISIBLE }"
                 app:colorClickableText="@color/purple_700"
                 app:layout_constraintEnd_toStartOf="@id/end_grid"
                 app:layout_constraintStart_toStartOf="@id/start_grid"
@@ -179,7 +177,6 @@
                 app:layout_constraintStart_toEndOf="@id/birthday_label"
                 app:layout_constraintTop_toBottomOf="@id/gender_label"
                 tools:text="1/10/1000" />
-
             <!-- line3 -->
             <View
                 android:id="@+id/line3"
@@ -190,41 +187,44 @@
                 app:layout_constraintEnd_toStartOf="@id/end_grid"
                 app:layout_constraintStart_toStartOf="@id/start_grid"
                 app:layout_constraintTop_toBottomOf="@id/birthday_label" />
-
+            <!--person images-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/images_rv"
                 android:layout_width="0dp"
+                app:listImagesData="@{viewModel.personImages}"
+                tools:listitem="@layout/person_images_grid_item"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
                 app:layout_constraintEnd_toStartOf="@id/end_grid"
                 app:layout_constraintStart_toStartOf="@id/start_grid"
                 app:layout_constraintTop_toBottomOf="@id/line3"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
 
+                tools:itemCount="4"
                 />
             <!-- line4 -->
             <View
                 android:id="@+id/line4"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/normal_margin"
+                android:layout_marginTop="@dimen/small_margin"
                 android:background="#575353"
                 android:visibility="@{viewModel.personDetails.isOtherNamesEmpty ? View.GONE : View.VISIBLE }"
                 app:layout_constraintEnd_toStartOf="@id/end_grid"
                 app:layout_constraintStart_toStartOf="@id/start_grid"
                 app:layout_constraintTop_toBottomOf="@id/images_rv" />
-
-            <!--Also Known As label-->
+            <!--lso Known As label-->
             <TextView
                 android:id="@+id/also_known_as_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/also_known_as"
                 android:visibility="@{viewModel.personDetails.isOtherNamesEmpty ? View.GONE : View.VISIBLE }"
-
+                android:layout_marginTop="@dimen/small_margin"
                 app:layout_constraintEnd_toStartOf="@id/end_grid"
                 app:layout_constraintStart_toStartOf="@id/start_grid"
                 app:layout_constraintTop_toBottomOf="@id/line4" />
-
             <!--Also Known As value-->
             <TextView
                 android:id="@+id/also_known_as_value"

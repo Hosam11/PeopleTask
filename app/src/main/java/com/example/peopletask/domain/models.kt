@@ -8,27 +8,29 @@ import com.squareup.moshi.Json
  */
 
 /**
- * response will return object of [PopularPeopleResponse]
+ * data class that hold data about [Person]s and paging
+ * when [getPopularPeople] called response will return object of [PopularPeopleResponse]
  */
 data class PopularPeopleResponse(
     val page: Int,
     @Json(name = "total_pages") val totalPages: Int,
-    @Json(name = "results") val personsList: List<PersonResult>
+    @Json(name = "results") val personsList: List<Person>
 )
 
 /**
- * in [PopularPeopleResponse] there is list of [PersonResult]
+ * data class that hold summary data about persons
+ * in [PopularPeopleResponse] there is list of [Person]
  */
-data class PersonResult(
+data class Person(
     val name: String,
     val id: Long,
     @Json(name = "profile_path") val imgPath: String?,
     @Json(name = "known_for_department") val personType: String
 )
 
-
 /**
- * response will return object of [PersonDetails]
+ * data class tha hold [PersonDetails] that carry details about person details
+ * when [getPersonDetails] called response will return object of [PersonDetails]
  */
 data class PersonDetails(
     @Json(name = "profile_path") val imgPath: String?,
@@ -42,12 +44,28 @@ data class PersonDetails(
 
 ) {
     // check for nullability and add result to variables if the variable is true hide the related view to it
-    val isBirthdayNull:Boolean = birthday == null
-    val isBiographyEmpty:Boolean = biography.isEmpty()
-    val isOtherNamesEmpty:Boolean = otherNames.isEmpty()
+    val isBirthdayNull: Boolean = birthday == null
+    val isBiographyEmpty: Boolean = biography.isEmpty()
+    val isOtherNamesEmpty: Boolean = otherNames.isEmpty()
 }
 
 /**
- * response will return list of [PersonImages]
+ * data class that holds [PersonImage] object that contains details of images
+ * this class used with [PersonProfile]
  */
-class PersonImages
+data class PersonImage(
+    @Json(name = "file_path") val imgPath: String,
+    val height: Int,
+    val width: Int,
+    @Json(name = "aspect_ratio") val aspectRatio: Float
+)
+
+/**
+ * data class that hold data of [PersonProfile] object that carry list of [PersonImage]
+ * when getImagesCalled response will return [PersonProfile] object
+ */
+data class PersonProfile(
+    @Json(name = "profiles") val personImages: List<PersonImage>
+)
+
+
