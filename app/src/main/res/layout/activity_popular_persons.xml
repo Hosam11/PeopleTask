@@ -16,10 +16,12 @@
         android:background="@color/primaryLightColor"
         tools:context=".ui.PopularPersonsActivity">
 
+
         <TextView
             android:textColor="@color/primaryTextColor"
             android:id="@+id/app_name_id"
             android:textSize="28sp"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/popular_people"
@@ -33,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+
             android:layout_marginTop="@dimen/normal_space"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

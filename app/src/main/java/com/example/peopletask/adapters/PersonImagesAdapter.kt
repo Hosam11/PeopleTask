@@ -6,19 +6,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.peopletask.databinding.PersonImagesGridItemBinding
-import com.example.peopletask.domain.PersonImage
 import com.example.peopletask.domain.Person
+import com.example.peopletask.domain.PersonImage
+import com.example.peopletask.util.Util
 import timber.log.Timber
 
-class PersonImagesAdapter(private val imageClickListener: ImageClickListener) : ListAdapter<PersonImage, PersonImagesAdapter.PersonImagesViewHolder>
-    (DiffCallback) {
+class PersonImagesAdapter(private val imageClickListener: ImageClickListener) :
+    ListAdapter<PersonImage, PersonImagesAdapter.PersonImagesViewHolder>
+        (DiffCallback) {
 
-    class PersonImagesViewHolder(private val binding: PersonImagesGridItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class PersonImagesViewHolder(private val binding: PersonImagesGridItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         companion object {
-            fun from(parent: ViewGroup):  PersonImagesViewHolder {
+            fun from(parent: ViewGroup): PersonImagesViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = PersonImagesGridItemBinding.inflate(layoutInflater, parent, false)
-                return  PersonImagesViewHolder(binding)
+                return PersonImagesViewHolder(binding)
             }
         }
 
@@ -40,8 +43,13 @@ class PersonImagesAdapter(private val imageClickListener: ImageClickListener) : 
         holder.bind(personImage)
 
         holder.itemView.setOnClickListener {
-            Timber.i("imageClickListener >> $personImage")
-            imageClickListener.onImageClick(personImage)
+            val context = holder.itemView.context
+            if (Util.isNetworkAvailable(context)) {
+                Timber.i("imageClickListener >> $personImage")
+                imageClickListener.onImageClick(personImage)
+            } else {
+                Util.showAlert(context)
+            }
         }
     }
 

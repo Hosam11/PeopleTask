@@ -1,19 +1,12 @@
 package com.example.peopletask.util
 
+import android.R
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-
-
-// TODO
-//  2- handle response failure (network/server down)        ##important##
-//  3- add Shimmer library                                  >>If there is time<<
-//  4- change the way of viewing the size of image for better user experience >>If there is time<<
-//  5- when click the notification open the img >>If there is time<<
-
-// FixMe
-//  1- airplane mode then device becomes online data didn't show unless you press back button (later)
+import androidx.appcompat.app.AlertDialog
+import timber.log.Timber
 
 
 object Util {
@@ -45,4 +38,19 @@ object Util {
         }
         return false
     }
+
+    fun showAlert(context: Context) {
+        Timber.i("show alert")
+        AlertDialog.Builder(context)
+            .setTitle(context.getString(com.example.peopletask.R.string.internet_error_title))
+            .setMessage(context.getString(com.example.peopletask.R.string.internet_error_message))
+            .setPositiveButton(
+                R.string.yes
+            ) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setIcon(R.drawable.ic_dialog_alert)
+            .show()
+    }
+
 }

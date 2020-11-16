@@ -2,6 +2,7 @@ package com.example.peopletask.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +27,10 @@ class PopularPersonsActivity : AppCompatActivity() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
+        if (!Util.isNetworkAvailable(this)) {
+            Util.showAlert(this)
+        }
+
         val personsViewModelFactory = PopularPersonsViewModelFactory(application)
 
         val personsViewModel = ViewModelProvider(this, personsViewModelFactory)
@@ -42,6 +47,7 @@ class PopularPersonsActivity : AppCompatActivity() {
         })
 
         binding.rvPopularPersons.adapter = adapter
+
 
     }
 }

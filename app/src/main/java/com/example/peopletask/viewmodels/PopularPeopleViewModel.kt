@@ -23,7 +23,6 @@ class PopularPersonsViewModel(app: Application) : AndroidViewModel(app) {
             .build()
 
     }
-
 }
 
 class PopularPersonsViewModelFactory(private val app: Application) : ViewModelProvider.Factory {

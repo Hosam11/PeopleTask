@@ -60,8 +60,11 @@ class PersonImageActivity : AppCompatActivity() {
         binding.downloadImageBtn.setOnClickListener {
             Timber.i("dirPath = $dirPath")
             Timber.i("fileName = $fileName")
-
-            downloadImage(imageUrl, dirPath, fileName)
+            if (Util.isNetworkAvailable(this)) {
+                downloadImage(imageUrl, dirPath, fileName)
+            } else {
+                Util.showAlert(this)
+            }
         }
 
 
@@ -82,20 +85,20 @@ class PersonImageActivity : AppCompatActivity() {
         downloadId = PRDownloader.download(imageUrl, dirPath, fileName)
             .build()
             .setOnProgressListener { progress ->
-
-               // Timber.i("onProgress >> currentBytes= ${progress?.currentBytes} ## totalBytes= ${progress.totalBytes} ")
-               /* val maxProgress = progress.totalBytes.toInt()
-                val minProgress = progress.currentBytes.toInt()*/
-
-                builder.setProgress(progress.totalBytes.toInt(), progress.currentBytes.toInt(), false)
+                // Timber.i("onProgress >> currentBytes= ${progress?.currentBytes} ## totalBytes= ${progress.totalBytes} ")
+                builder.setProgress(
+                    progress.totalBytes.toInt(),
+                    progress.currentBytes.toInt(),
+                    false
+                )
+                // update notification progress
                 notificationManagerCompat.notify(NOTIFICATION_ID, builder.build())
-
             }
             .start(object : OnDownloadListener {
                 override fun onDownloadComplete() {
                     Timber.i("down comp")
                     builder.setProgress(0, 0, false)
-                    builder.setContentText("Download Completed")
+                    builder.setContentText(getString(R.string.down_complete))
                     notificationManagerCompat.notify(NOTIFICATION_ID, builder.build())
 
                 }
@@ -103,7 +106,7 @@ class PersonImageActivity : AppCompatActivity() {
                 override fun onError(error: Error?) {
                     Timber.i("onError: ${error.toString()}  ${error?.connectionException.toString()} ")
                     builder.setProgress(0, 0, false)
-                    builder.setContentText("Sorry! Something wrong happened")
+                    builder.setContentText(getString(R.string.error_download_notification))
                     notificationManagerCompat.notify(NOTIFICATION_ID, builder.build())
                 }
 
@@ -121,7 +124,6 @@ class PersonImageActivity : AppCompatActivity() {
             .setSmallIcon(R.drawable.ic_baseline_cloud_download_24)
             .setContentTitle(applicationContext.getString(R.string.notification_title))
             .setContentText(applicationContext.getString(R.string.notification_body))
-            // .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
     }

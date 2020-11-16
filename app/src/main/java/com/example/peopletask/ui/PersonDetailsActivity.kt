@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.example.peopletask.R
 import com.example.peopletask.adapters.PersonImagesAdapter
 import com.example.peopletask.databinding.ActivityPersonDetailsBinding
@@ -23,24 +22,30 @@ class PersonDetailsActivity : AppCompatActivity() {
             this,
             R.layout.activity_person_details
         )
+
         binding.lifecycleOwner = this
         val intent = intent
-        personID =  intent.getLongExtra(Util.PERSON_ID_KEY, -1)
+        personID = intent.getLongExtra(Util.PERSON_ID_KEY, -1)
 
         val viewModelFactory = PersonDetailsViewModelFactory(personID)
 
-        val personsDetailsViewModel =  ViewModelProvider(this, viewModelFactory)
+        val personsDetailsViewModel = ViewModelProvider(this, viewModelFactory)
             .get(PersonDetailsViewModel::class.java)
 
+        if (!Util.isNetworkAvailable(this)) {
+            Util.showAlert(this)
+        }
         binding.viewModel = personsDetailsViewModel
 
-        val imagesAdapter = PersonImagesAdapter(PersonImagesAdapter.ImageClickListener {
-            personImage -> Timber.i(" ImageClickListener  $personImage  ")
-            val openImageIntent = Intent(this, PersonImageActivity::class.java).apply {
-                putExtra(Util.PERSON_IMAGE_KEY, personImage)
-            }
-            startActivity(openImageIntent)
-        })
+        val imagesAdapter =
+            PersonImagesAdapter(PersonImagesAdapter.ImageClickListener { personImage ->
+                Timber.i(" ImageClickListener  $personImage  ")
+                val openImageIntent = Intent(this, PersonImageActivity::class.java).apply {
+                    putExtra(Util.PERSON_IMAGE_KEY, personImage)
+                }
+                startActivity(openImageIntent)
+            })
+
         binding.imagesRv.adapter = imagesAdapter
 
 

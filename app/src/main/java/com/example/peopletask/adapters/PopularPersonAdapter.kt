@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.peopletask.adapters.PopularPersonAdapter.PersonsViewHolder
 import com.example.peopletask.databinding.PopularPeopleListItemBinding
 import com.example.peopletask.domain.Person
+import com.example.peopletask.util.Util
 
 
 class PopularPersonAdapter(private val personClickListener: PersonClickListener) :
@@ -22,7 +23,12 @@ class PopularPersonAdapter(private val personClickListener: PersonClickListener)
         person?.let { holder.bind(it) }
 
         holder.itemView.setOnClickListener {
-            person?.let { personClickListener.onPersonClick(it) }
+            val context = holder.itemView.context
+            if (Util.isNetworkAvailable(context)) {
+                person?.let { personClickListener.onPersonClick(it) }
+            } else {
+                Util.showAlert(context)
+            }
         }
     }
 

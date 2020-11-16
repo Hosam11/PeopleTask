@@ -11,7 +11,6 @@ class PersonsApplication : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         PRDownloader.initialize(applicationContext)
-
     }
 
 }

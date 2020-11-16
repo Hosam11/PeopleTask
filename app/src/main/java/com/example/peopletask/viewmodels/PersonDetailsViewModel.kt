@@ -35,6 +35,9 @@ class PersonDetailsViewModel(personId: Long) : ViewModel() {
         }
     }
 
+    /**
+     * Transform list of strings so i can display it on TextView
+     */
     val otherNames = Transformations.map(personDetails){
         personDetails.value?.otherNames?.joinToString("\n")
     }

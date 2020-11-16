@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">PeopleTask</string>
 
-    <!--    <string name="image_url">http://image.tmdb.org/t/p/w185/%s</string>-->
-
-    "http://image.tmdb.org/t/p/w185/"
-
     <!-- first parameter to original size of image like (w185)
       second parameter to file path-->
     <string name="image_url">http://image.tmdb.org/t/p/%s/%s</string>
@@ -28,6 +24,10 @@
     <string name="notification_body">Download In Progress..</string>
     <string name="notification_title">Download</string>
     <string name="popular_people">Popular People</string>
+    <string name="down_complete">Download Completed</string>
+    <string name="error_download_notification">Sorry! Something wrong happened</string>
+    <string name="internet_error_title">Internet Connection Error</string>
+    <string name="internet_error_message">Sorry! there is problem with internet please make sure internet is available</string>
 
 
 </resources>
