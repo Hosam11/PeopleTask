@@ -7,20 +7,21 @@ import android.os.Build
 
 
 // TODO
-//  1- improve the design                                   >>If there is time<<
+//  1- improve the design                                   >>If there is time<< ##important##
 //  2- handle response failure (network/server down)        ##important##
 //  3- add Shimmer library                                  >>If there is time<<
-
+//  4- change the way of viewing the size of image for better user experience >>If there is time<<
+//  5- when click the notification open the img >>If there is time<<
 // FixMe
 //  1- airplane mode then device becomes online data didn't show unless you press back button (later)
 
 
 object Util {
     const val API_KEY = "d48385912e9ef27b0552871f8b253a6e"
-
-    const val IMAGE_URL = " http://image.tmdb.org/t/p/w185/"
-
-    const val PERSON_ID_KEY ="person_id"
+    const val PERSON_ID_KEY = "person_id"
+    const val PERSON_IMAGE_KEY = "person_image"
+    const val CHANNEL_ID = "download_notification"
+    const val CHANNEL_NAME = "downloading"
 
     fun isNetworkAvailable(context: Context?): Boolean {
         if (context == null) return false

@@ -10,8 +10,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.peopletask.R
 import com.example.peopletask.adapters.PersonImagesAdapter
 import com.example.peopletask.adapters.PopularPersonAdapter
-import com.example.peopletask.domain.PersonImage
 import com.example.peopletask.domain.Person
+import com.example.peopletask.domain.PersonImage
 import timber.log.Timber
 
 
@@ -32,11 +32,13 @@ fun bindPersonsRecyclerView(recyclerView: RecyclerView, data: PagedList<Person>?
 /**
  * Uses the Glide library to load an image by URL into an [ImageView]
  */
-@BindingAdapter("imageUrl")
-fun bindImage(imgView: ImageView, imgPath: String?) {
+@BindingAdapter("imageUrl","imageSize")
+fun bindImage(imgView: ImageView, imgPath: String?, imageSize: String) {
     imgPath?.let {
         // add the path of image to string url so glide can download the image
-        val imgUrl = Util.IMAGE_URL + imgPath
+//        val imgUrl = Util.IMAGE_URL + imgPath
+        val imgUrl = imgView.context.getString(R.string.image_url, imageSize, imgPath)
+        Timber.i("bindImage >> imgUrl = $imgUrl")
         // convert string url to uri
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
@@ -51,10 +53,8 @@ fun bindImage(imgView: ImageView, imgPath: String?) {
 }
 
 @BindingAdapter("listImagesData")
-fun RecyclerView.bindImagesRecyclerView(data: List<PersonImage>?){
-    val adapter =  this.adapter as PersonImagesAdapter
+fun RecyclerView.bindImagesRecyclerView(data: List<PersonImage>?) {
+    val adapter = this.adapter as PersonImagesAdapter
     adapter.submitList(data)
     Timber.i("bindImagesRecyclerView() listSize >> ${data?.size}")
-
-
 }

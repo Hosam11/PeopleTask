@@ -27,6 +27,8 @@
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/person_image"
                 app:imageUrl="@{person.imgPath}"
+                app:imageSize="@{@string/img_size_small}"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic" />

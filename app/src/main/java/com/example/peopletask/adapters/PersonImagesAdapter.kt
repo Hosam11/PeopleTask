@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.peopletask.databinding.PersonImagesGridItemBinding
 import com.example.peopletask.domain.PersonImage
 import com.example.peopletask.domain.Person
+import timber.log.Timber
 
-class PersonImagesAdapter : ListAdapter<PersonImage, PersonImagesAdapter.PersonImagesViewHolder>(DiffCallback) {
+class PersonImagesAdapter(private val imageClickListener: ImageClickListener) : ListAdapter<PersonImage, PersonImagesAdapter.PersonImagesViewHolder>
+    (DiffCallback) {
 
     class PersonImagesViewHolder(private val binding: PersonImagesGridItemBinding): RecyclerView.ViewHolder(binding.root) {
         companion object {
@@ -36,10 +38,15 @@ class PersonImagesAdapter : ListAdapter<PersonImage, PersonImagesAdapter.PersonI
     override fun onBindViewHolder(holder: PersonImagesViewHolder, position: Int) {
         val personImage = getItem(position)
         holder.bind(personImage)
+
+        holder.itemView.setOnClickListener {
+            Timber.i("imageClickListener >> $personImage")
+            imageClickListener.onImageClick(personImage)
+        }
     }
 
     /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [Person]
+     * Allows the RecyclerView to determine which items have changed when the [List] of [PersonImage]
      * has been updated.
      */
     companion object DiffCallback : DiffUtil.ItemCallback<PersonImage>() {
@@ -50,4 +57,14 @@ class PersonImagesAdapter : ListAdapter<PersonImage, PersonImagesAdapter.PersonI
             newItem == oldItem
     }
 
+
+    /**
+     * Custom listener that handles clicks on [RecyclerView] items. Passes the [Person]
+     * associated with the current item to the [onPersonClick] function.
+     *
+     * @param clickListener lambda that will be called with the current [Person]
+     */
+    class ImageClickListener(private val clickListener: (personImage: PersonImage) -> Unit) {
+        fun onImageClick(personImage: PersonImage) = clickListener(personImage)
+    }
 }

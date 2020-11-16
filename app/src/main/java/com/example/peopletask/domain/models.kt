@@ -1,6 +1,8 @@
 package com.example.peopletask.domain
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Domain objects are plain Kotlin data classes that represent the things in our app. These are the
@@ -53,12 +55,13 @@ data class PersonDetails(
  * data class that holds [PersonImage] object that contains details of images
  * this class used with [PersonProfile]
  */
+@Parcelize
 data class PersonImage(
     @Json(name = "file_path") val imgPath: String,
     val height: Int,
     val width: Int,
-    @Json(name = "aspect_ratio") val aspectRatio: Float
-)
+    @Json(name = "aspect_ratio") val aspectRatio: Double
+): Parcelable
 
 /**
  * data class that hold data of [PersonProfile] object that carry list of [PersonImage]

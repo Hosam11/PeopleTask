@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 
@@ -89,4 +90,7 @@ dependencies {
 
     def read_more_text_view = "2.1.0"
     implementation "com.borjabravo:readmoretextview:$read_more_text_view"
+
+    def prdownloader = "0.6.0"
+    implementation "com.mindorks.android:prdownloader:$prdownloader"
 }

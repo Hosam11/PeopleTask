@@ -3,6 +3,11 @@
 
     <!--    <string name="image_url">http://image.tmdb.org/t/p/w185/%s</string>-->
 
+    "http://image.tmdb.org/t/p/w185/"
+
+    <!-- first parameter to original size of image like (w185)
+      second parameter to file path-->
+    <string name="image_url">http://image.tmdb.org/t/p/%s/%s</string>
     <string name="person_acting">Acting</string>
     <string name="person_actor">Actor</string>
     <string name="person_director">Director</string>
@@ -16,5 +21,12 @@
     <string name="female">Female</string>
     <string name="male">Male</string>
     <string name="female_number">1</string>
+
+    <string name="img_size_small">w185</string>
+    <string name="img_size_original">original</string>
+    <string name="download">download</string>
+    <string name="notification_body">Download In Progress..</string>
+    <string name="notification_title">Download</string>
+
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.peopletask.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -33,7 +34,13 @@ class PersonDetailsActivity : AppCompatActivity() {
 
         binding.viewModel = personsDetailsViewModel
 
-        val imagesAdapter = PersonImagesAdapter()
+        val imagesAdapter = PersonImagesAdapter(PersonImagesAdapter.ImageClickListener {
+            personImage -> Timber.i(" ImageClickListener  $personImage  ")
+            val openImageIntent = Intent(this, PersonImageActivity::class.java).apply {
+                putExtra(Util.PERSON_IMAGE_KEY, personImage)
+            }
+            startActivity(openImageIntent)
+        })
         binding.imagesRv.adapter = imagesAdapter
 
 
