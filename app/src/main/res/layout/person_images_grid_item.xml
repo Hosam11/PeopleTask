@@ -14,10 +14,10 @@
       android:layout_width="match_parent"
       android:layout_height="170dp"
       android:adjustViewBounds="true"
-      android:padding="@dimen/small_margin"
+      android:padding="4dp"
       android:scaleType="centerCrop"
       app:imageUrl="@{personImage.imgPath}"
       app:imageSize="@{@string/img_size_small}"
       tools:src="@tools:sample/backgrounds/scenic"
-      />
+      android:contentDescription="@string/person_image" />
 </layout>

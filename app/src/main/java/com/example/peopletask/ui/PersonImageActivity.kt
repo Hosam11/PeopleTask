@@ -83,11 +83,11 @@ class PersonImageActivity : AppCompatActivity() {
             .build()
             .setOnProgressListener { progress ->
 
-                Timber.i("onProgress >> currentBytes= ${progress?.currentBytes} ## totalBytes= ${progress.totalBytes} ")
-                val maxProgress = progress.totalBytes.toInt()
-                val minProgress = progress.currentBytes.toInt()
+               // Timber.i("onProgress >> currentBytes= ${progress?.currentBytes} ## totalBytes= ${progress.totalBytes} ")
+               /* val maxProgress = progress.totalBytes.toInt()
+                val minProgress = progress.currentBytes.toInt()*/
 
-                builder.setProgress(maxProgress, minProgress, false)
+                builder.setProgress(progress.totalBytes.toInt(), progress.currentBytes.toInt(), false)
                 notificationManagerCompat.notify(NOTIFICATION_ID, builder.build())
 
             }
@@ -95,7 +95,7 @@ class PersonImageActivity : AppCompatActivity() {
                 override fun onDownloadComplete() {
                     Timber.i("down comp")
                     builder.setProgress(0, 0, false)
-                    builder.setContentText("Down Completed")
+                    builder.setContentText("Download Completed")
                     notificationManagerCompat.notify(NOTIFICATION_ID, builder.build())
 
                 }

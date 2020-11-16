@@ -74,6 +74,7 @@ class PopularDataSource(
 
         } else {
             Timber.i("loadAfter() >> No internet found")
+            callback.onResult(listOf(), null)
         }
     }
 
@@ -99,6 +100,7 @@ class PopularDataSource(
             }
         } else {
             Timber.i("loadInitial() >> No internet found")
+            callback.onResult(listOf(), null,null)
         }
     }
 

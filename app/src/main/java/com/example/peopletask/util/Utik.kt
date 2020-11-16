@@ -7,11 +7,11 @@ import android.os.Build
 
 
 // TODO
-//  1- improve the design                                   >>If there is time<< ##important##
 //  2- handle response failure (network/server down)        ##important##
 //  3- add Shimmer library                                  >>If there is time<<
 //  4- change the way of viewing the size of image for better user experience >>If there is time<<
 //  5- when click the notification open the img >>If there is time<<
+
 // FixMe
 //  1- airplane mode then device becomes online data didn't show unless you press back button (later)
 

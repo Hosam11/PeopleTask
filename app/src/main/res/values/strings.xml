@@ -27,6 +27,7 @@
     <string name="download">download</string>
     <string name="notification_body">Download In Progress..</string>
     <string name="notification_title">Download</string>
+    <string name="popular_people">Popular People</string>
 
 
 </resources>

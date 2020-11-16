@@ -12,16 +12,18 @@
 
     <HorizontalScrollView
         android:id="@+id/horizontal_scroll_view"
+        android:background="@color/primaryLightColor"
+
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center">
 
         <ScrollView
+
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbarAlwaysDrawHorizontalTrack="true"
@@ -40,10 +42,12 @@
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <Button
+                    android:padding="@dimen/normal_space"
+                    android:textColor="@color/primaryTextColor"
                     android:id="@+id/download_image_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_space"
                     android:text="@string/download"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
